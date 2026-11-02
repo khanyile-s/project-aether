@@ -1,0 +1,25 @@
+
+clinical_research:
+  - Clinical Trial Assistant
+  - Clinical Research Assistant
+  - Clinical Trial Associate
+  - Clinical Research Coordinator
+  - Study Coordinator
+  - Clinical Project Coordinator
+  - Clinical Trial Administrator
+
+research_governance:
+  - Research Governance Officer
+  - Research Management Assistant
+  - Research Facilitator
+
+quality_regulatory:
+  - GCP Quality Assurance
+  - Regulatory Affairs Assistant
+  - TMF Associate
+  - Clinical Documentation Specialist
+
+biomedical_science:
+  - Biomedical Scientist
+  - Specialist Biomedical Scientist
+  - Trainee Biomedical Scientist
