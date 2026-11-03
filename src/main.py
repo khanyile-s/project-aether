@@ -2,36 +2,35 @@
 from pathlib import Path
 import yaml
 
+from database import initialise_database
+from process_jobs import process_jobs
+from save_jobs import save_jobs
 
-# Project root directory
+
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Search terms configuration
 CONFIG_FILE = BASE_DIR / "config" / "search_terms.yaml"
 
 
 def load_search_terms():
-    """Load job search keywords from the YAML configuration."""
+    """Load job search keywords from YAML."""
     with open(CONFIG_FILE, "r", encoding="utf-8") as file:
-        search_terms = yaml.safe_load(file)
-
-    return search_terms
+        return yaml.safe_load(file)
 
 
 def main():
+    print("=" * 50)
+    print("PROJECT AETHER")
+    print("UK Sponsorship Job Intelligence Pipeline")
+    print("=" * 50)
+
+    initialise_database()
+
     search_terms = load_search_terms()
 
-    print("PROJECT AETHER")
-    print("=" * 40)
-    print("Search categories loaded successfully!\n")
+    print(f"\nSearch categories loaded: {len(search_terms)}")
 
-    for category, terms in search_terms.items():
-        print(f"\n{category.upper()}")
-
-        for term in terms:
-            print(f" - {term}")
-
-    print("\nConfiguration loaded. Ready for the next stage!")
+    print("\nDatabase initialised.")
+    print("Pipeline ready to process vacancies!")
 
 
 if __name__ == "__main__":
