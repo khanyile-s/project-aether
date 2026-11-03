@@ -1,19 +1,51 @@
 
+from datetime import date
+
+
+def create_job_record(
+    job_title,
+    employer,
+    job_url,
+    source,
+    location="Unknown",
+    salary="Not specified",
+    contract_type="Not specified",
+    closing_date=None,
+    description="",
+):
+    """
+    Create a standardised vacancy record for Project AETHER.
+    """
+
+    return {
+        "job_title": job_title,
+        "employer": employer,
+        "location": location,
+        "salary": salary,
+        "contract_type": contract_type,
+        "closing_date": closing_date,
+        "job_url": job_url,
+        "source": source,
+        "description": description,
+        "date_discovered": date.today().isoformat(),
+        "last_checked": date.today().isoformat(),
+        "sponsorship_status": "Unverified",
+        "sponsor_register_status": "Unknown",
+        "eligibility_status": "Not assessed",
+        "notes": "",
+    }
+
+
 def search_jobs(search_terms):
     """
-    Search for job vacancies using keywords.
+    Search for vacancies using keywords.
 
-    Accepts either a list of search terms or a dictionary
-    of categories containing lists of search terms.
-
-    Returns:
-        list: Collected job vacancies.
+    Currently prepares the search terms.
+    Live vacancy collection will be added next.
     """
 
     jobs = []
 
-    # If search terms come from YAML as a dictionary,
-    # combine all categories into one list.
     if isinstance(search_terms, dict):
         all_terms = [
             term
@@ -24,7 +56,7 @@ def search_jobs(search_terms):
         all_terms = search_terms
 
     for term in all_terms:
-        print(f"Preparing to search for: {term}")
+        print(f"Search term prepared: {term}")
 
     print(f"\nTotal search terms: {len(all_terms)}")
 
@@ -32,16 +64,16 @@ def search_jobs(search_terms):
 
 
 if __name__ == "__main__":
-    example_terms = {
-        "clinical_research": [
-            "Clinical Research Assistant",
-            "Clinical Research Practitioner",
-            "Clinical Research Support Worker",
-        ]
-    }
+    example = create_job_record(
+        job_title="Clinical Research Practitioner",
+        employer="Example NHS Trust",
+        job_url="https://example.com/job",
+        source="Example source",
+        location="Edinburgh",
+    )
 
-    results = search_jobs(example_terms)
+    print("Example vacancy record:")
+    print(example)
 
-    print(f"\nTotal vacancies collected: {len(results)}")
 
 
