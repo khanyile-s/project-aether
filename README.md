@@ -1,6 +1,3 @@
-# project-aether
-UK Skilled Worker sponsorship job intelligence pipeline
-
 # Project AETHER
 ### Automated Employment & Talent Horizon Exploration and Research
 
