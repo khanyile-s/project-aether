@@ -24,4 +24,4 @@ jobs:
 
       - name: Run Project AETHER
         run: python src/main.py
-1
+
