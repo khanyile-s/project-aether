@@ -1,8 +1,7 @@
 
-from filter_jobs import filter_jobs
-from sponsorship_check import check_sponsorship
-from save_jobs import save_jobs
 from database import initialise_database
+from process_jobs import process_jobs
+from save_jobs import save_jobs
 
 
 def test_pipeline():
@@ -27,34 +26,53 @@ def test_pipeline():
             "job_title": "Retail Assistant",
             "employer": "Example Retailer",
             "location": "Bradford",
+            "salary": "£25,000",
+            "contract_type": "Permanent",
+            "closing_date": "2026-12-15",
             "job_url": "https://example.com/job2",
             "source": "Test source",
             "description": "No sponsorship available.",
         },
     ]
 
-    print("Initialising database...")
+    print("=" * 50)
+    print("PROJECT AETHER — PIPELINE TEST")
+    print("=" * 50)
+
+    # Step 1: Initialise the database
+    print("\n1. Initialising database...")
     initialise_database()
 
-    print("\nFiltering relevant vacancies...")
-    relevant_jobs = filter_jobs(sample_jobs)
+    # Step 2: Process sample vacancies
+    print("\n2. Processing sample vacancies...")
+    processed_jobs = process_jobs(sample_jobs)
 
-    print(f"Relevant vacancies found: {len(relevant_jobs)}")
+    print(f"Relevant vacancies found: {len(processed_jobs)}")
 
-    print("\nChecking sponsorship wording...")
+    # Step 3: Display sponsorship assessments
+    print("\n3. Sponsorship assessments:")
 
-    for job in relevant_jobs:
-        result = check_sponsorship(job.get("description", ""))
-        job.update(result)
+    for job in processed_jobs:
+        print(f"\nJob: {job['job_title']}")
+        print(f"Employer: {job['employer']}")
+        print(f"Sponsorship: {job['sponsorship_status']}")
+        print(f"Evidence: {job['positive_evidence']}")
+        print(f"Negative evidence: {job['negative_evidence']}")
 
-        print(job["job_title"])
-        print(job["sponsorship_status"])
+    # Step 4: Save processed vacancies
+    print("\n4. Saving vacancies...")
+    saved_count = save_jobs(processed_jobs)
 
-    print("\nSaving vacancies...")
-    save_jobs(relevant_jobs)
-
+    # Step 5: Report results
+    print("\n" + "=" * 50)
+    print("PIPELINE TEST RESULTS")
+    print("=" * 50)
+    print(f"Sample vacancies: {len(sample_jobs)}")
+    print(f"Relevant vacancies: {len(processed_jobs)}")
+    print(f"New records saved: {saved_count}")
     print("\nPipeline test completed!")
 
 
 if __name__ == "__main__":
     test_pipeline()
+
